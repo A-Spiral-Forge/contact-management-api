@@ -1,5 +1,11 @@
 # Contact Management API
 
+### API Setups
+
+-   npm init
+-   npm install
+-   npm run start
+
 ### API Endpoints
 
 -   Contact Route : /api/v1/contacts
