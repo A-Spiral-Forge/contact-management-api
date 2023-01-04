@@ -36,7 +36,46 @@ const contactsSchema = new mongoose.Schema({
 		},
 	},
 	company: {
-		type: String,
+		type: {
+			name: {
+				type: String,
+				required: [true, 'Company name is required'],
+				maxlength: [50, 'Maximum length of company name is 50 characters'],
+				validate: {
+					validator: function (value) {
+						return validator.isAlpha(value, 'en-US', {
+							ignore: ' ',
+						});
+					},
+					message: 'Company name must only contains Alphabates',
+				},
+			},
+			slug: String,
+			website: {
+				type: String,
+				validate: {
+					validator: function (value) {
+						return validator.isURL(value, {
+							protocols: ['http', 'https'],
+							require_protocol: true,
+						});
+					},
+					message: 'Website must be a valid URL',
+				},
+			},
+			position: {
+				type: String,
+				maxlength: [50, 'Maximum length of position is 50 characters'],
+				validate: {
+					validator: function (value) {
+						return validator.isAlpha(value, 'en-US', {
+							ignore: ' ',
+						});
+					},
+					message: 'Position must only contains Alphabates',
+				},
+			},
+		},
 	},
 	email: {
 		type: [

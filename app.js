@@ -19,6 +19,10 @@ const limiter = rateLimit({
 
 // Express specific stuff
 const app = express();
+// Set template engine as pug
+app.set('view engine', 'pug');
+// Set the views directory
+app.set('views', path.join(__dirname, 'views'));
 // Set security HTTP headers
 app.use(helmet());
 // Set limit to requests from same IP
