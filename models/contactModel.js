@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 const validator = require('validator');
 
-const contactsSchema = new mongoose.Schema({
+const ContactsSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: [true, 'Contact details must have a name'],
-		unique: [true, 'Name of contact must be unique'],
 		maxlength: [50, 'Maximum length of name is 50 characters'],
 		validate: {
 			validator: function (value) {
@@ -35,6 +34,29 @@ const contactsSchema = new mongoose.Schema({
 				'Must have minimum one number and all numbers must be unique for a contact',
 		},
 	},
+	linkedinURL: {
+		type: String,
+		required: [true, 'LinkedIn profile is required'],
+		unique: [true, 'LinkedIn profile already exists with this URL.'],
+		validate: [
+			{
+				validator: function (value) {
+					return validator.isURL(value, {
+						protocols: ['http', 'https'],
+						require_protocol: true,
+					});
+				},
+				message: 'LinkedIn profile must be a valid URL',
+			},
+			{
+				validator: function(value) {
+					const res = /https:\/\/www\.linkedin\.com\/in\/.+\//i;
+					return res.test(value);
+				},
+				message: 'LinkedIn URL must ends with a / and in corrext format',
+			},
+		],
+	},
 	company: {
 		type: {
 			name: {
@@ -44,7 +66,7 @@ const contactsSchema = new mongoose.Schema({
 				validate: {
 					validator: function (value) {
 						return validator.isAlpha(value, 'en-US', {
-							ignore: ' ',
+							ignore: " .'-",
 						});
 					},
 					message: 'Company name must only contains Alphabates',
@@ -69,7 +91,7 @@ const contactsSchema = new mongoose.Schema({
 				validate: {
 					validator: function (value) {
 						return validator.isAlpha(value, 'en-US', {
-							ignore: ' ',
+							ignore: " .'",
 						});
 					},
 					message: 'Position must only contains Alphabates',
@@ -81,13 +103,17 @@ const contactsSchema = new mongoose.Schema({
 		type: [
 			{
 				type: String,
+				validate: {
+					validator: validator.isEmail,
+					message: 'Please check the list of emails.'
+				}
 			},
 		],
 		validate: {
 			validator: function (val) {
-				return new Set(val).size === val.length;
+				return val.length > 0 && new Set(val).size === val.length;
 			},
-			message: 'All emails must be unique for a contact',
+			message: 'Must have minimum one number and all numbers must be unique for a contact',
 		},
 	},
 	address: {
@@ -121,6 +147,6 @@ const contactsSchema = new mongoose.Schema({
 	},
 });
 
-const Contact = mongoose.model('Contact', contactsSchema);
+const Contact = mongoose.model('Contact', ContactsSchema);
 
 module.exports = Contact;

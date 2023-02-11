@@ -19,12 +19,16 @@ router
 	);
 
 router
-	.route('/:id')
+	.route('/id/:id')
 	.get(contactController.getContact)
 	.patch(authController.restrictTo('admin'), contactController.updateContact)
 	.delete(
 		authController.restrictTo('admin'),
 		contactController.deleteContact
 	);
+
+router
+	.route('/username/:username')
+	.get(contactController.getContactByUsername)
 
 module.exports = router;
