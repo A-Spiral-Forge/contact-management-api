@@ -1,0 +1,24 @@
+extends base
+
+block style 
+    link(rel="stylesheet", href="/css/routeDetails.css")
+
+block content
+    .route__details 
+        .route__details--left 
+            for detail in data.details
+                details.route__details--subdivision
+                    summary
+                        h2.route__details--subdivision__heading #{detail.heading}
+                    ol.route__details--subdivision__list 
+                        for item in detail.listItems
+                            li.route__details--subdivision__list--item 
+                                h3.route__details--subdivision__list--item__heading #{item.heading}
+                                p.route__details--subdivision__list--item__desc #{item.description}
+        .route__details--right
+            .route__output--heading 
+                h2 Output JSON 
+            .route__output--json
+                pre
+                    code
+                        != JSON.stringify(data.responseTemplate, null, 2)

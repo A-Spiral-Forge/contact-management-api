@@ -1,0 +1,15 @@
+extends base
+
+block style 
+  link(rel='stylesheet', href='/css/login.css')
+
+block content
+    form
+        div
+            label(for='username') Username:
+            input(type='text', name='username', autofill='off')
+        div
+            label(for='password') Password:
+            input(type='password', name='password', autofill='off')
+        div
+            button(type='submit') Login

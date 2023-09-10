@@ -1,0 +1,31 @@
+form {
+    margin: auto;
+    padding: 3rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid #ffffff;
+}
+
+form > * {
+    margin: 2rem;
+}
+
+form > div > label {
+    display: inline-block;
+    width: 100px;
+}
+
+form > div > input {
+    width: 20rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+form > div > button {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ffffff;
+    background-color: #ffffff;
+    color: #000000;
+    width: 100%;
+    margin-top: 1rem;
+}

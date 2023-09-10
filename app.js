@@ -8,6 +8,7 @@ const hpp = require('hpp');
 
 const contactRouter = require('./routes/contactRoutes');
 const userRouter = require('./routes/userRoutes');
+const docsRouter = require('./routes/docsRouter');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -49,6 +50,7 @@ app.use(
 // Servong static files
 app.use(express.static(path.join(__dirname, './public')));
 
+app.use('/', docsRouter);
 app.use('/api/v1/contacts', contactRouter);
 app.use('/api/v1/users', userRouter);
 

@@ -1,0 +1,16 @@
+extends base
+
+block style
+    link(rel="stylesheet", href="/css/overview.css")
+
+block content 
+    .api__routes--cards
+        for route in routes 
+            a.api__route--card(href=route.href, class=route.method)
+                .api__route--card__header 
+                    h3.api__route--card__title #{route.title}
+                    span.api__route--card__method(class=route.method) #{route.method}
+                hr.splitter
+                .api__route--card__description 
+                    p.api__route--card__route #{route.route}
+                    p.api__route--card__summary #{route.summary}
